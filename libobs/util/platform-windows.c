@@ -1088,9 +1088,24 @@ bool is_64_bit_windows(void)
 #endif
 }
 
+bool is_arm64_windows(void)
+{
+#if defined(_M_ARM64) || defined(_M_ARM64EC)
+	return true;
+#else
+	USHORT _, nativeMachine;
+	auto result = IsWow64Process2(GetCurrentProcess(), &_, &nativeMachine);
+	return (result && (nativeMachine == IMAGE_FILE_MACHINE_ARM64));
+#endif
+}
+
 bool os_get_emulation_status(void)
 {
+#if defined(_M_ARM64) || defined(_M_ARM64EC)
 	return false;
+#else
+	return is_arm64_windows();
+#endif
 }
 
 void get_reg_dword(HKEY hkey, LPCWSTR sub_key, LPCWSTR value_name,

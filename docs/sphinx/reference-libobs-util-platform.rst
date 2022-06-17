@@ -485,5 +485,5 @@ Other Functions
 
    Returns true if the current process is a x64 binary and is being emulated or translated
    by the host operating system. On macOS, it returns true when a x64 binary is 
-   being translated by Rosetta and running on Apple Silicon Macs. This function is not yet
-   implemented on Windows and Linux and will always return false on those platforms.
+   being translated by Rosetta and running on Apple Silicon Macs. On Windows, it 
+   returns true when a x64 binary is being emulated on Windows ARM64 PCs.
